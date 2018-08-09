@@ -5,7 +5,7 @@ python中的函数参数在定义时可以有默认值,可以让__init__函数�
 方法是让__init__接收不同个数的参数,并且执行类型检测执行不同的代码,用上述方法实现类的构造函数的多态性
 """
 # 定义类
-class MyCalss:
+class MyClass:
 
     """
     self代表类的实例,而非类
@@ -66,10 +66,10 @@ class MyCalss:
 # print("name = ",y.getName())
 # print("age = ",y.getAge())
 
-class SubClass(MyCalss):
+class SubClass(MyClass):
 
     def __init__(self,name,age):
-        MyCalss.__init__(self,name,age)
+        MyClass.__init__(self,name,age)
 
     def speak(self):
         print("speak")
@@ -77,7 +77,7 @@ class SubClass(MyCalss):
     # 方法的重写
     def printf(self):
         # 调用父类的方法
-        MyCalss.printf(self)
+        MyClass.printf(self)
         print("调用子类方法")
 
 sub = SubClass("aimi",1);
@@ -88,3 +88,27 @@ print("age = ",sub.getAge())
 sub.speak()
 
 sub.printf()
+
+# 传递的为引用类型
+def trans1(o):
+
+    print("id1 = ",id(o))
+
+    o.name = "111";
+
+    print("id2 = ", id(o))
+    return
+
+print("father = ",MyClass)
+print("sub = ",SubClass)
+
+print("id0 = ",id(sub))
+trans1(sub)
+
+print(sub.getName())
+var = isinstance(sub,MyClass)
+
+print("var = ",var)
+
+# 直接打印所属类型
+print(int)
