@@ -1,14 +1,6 @@
 # numpy是一个python包,它是一个由多维数组对象和用于处理数组的例程集合组成的库,可以认为是一个处理矩阵的库
 import numpy as np
 
-# arr = np.arange(4).reshape(2,2)
-
-# 矩阵的转置
-# print(arr.T)
-
-# 矩阵的内积
-# print(np.dot(arr,arr.T))
-
 # 示例1:从txt文本中读取数据
 """
 # fname:文件名
