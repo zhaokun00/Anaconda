@@ -1,3 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 /src/numpy/world_alcohol.txt
+/src/pandas/food_info.csv
+
