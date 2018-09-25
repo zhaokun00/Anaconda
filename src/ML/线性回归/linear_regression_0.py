@@ -7,17 +7,52 @@ import matplotlib.pyplot as plt
 # https://www.cnblogs.com/zhizhan/p/5615947.html
 __author__ = 'yasaka'
 
-# 这里相当于是随机X维度X1，rand是随机均匀分布
-X = 2 * np.random.rand(100, 1)
-#
-# print("x的取值")
-print(X)
-#
-# print("y的取值")
-# 人为的设置真实的Y一列，np.random.randn(100, 1)是设置error，randn是标准正太分布
-# y = 4 + 3 * X + np.random.randn(100, 1)
+"""
+numpy中有一些常用的用来产生随机数的函数,randn()和rand()就属于其中
+np.random.random(size)生成[0.1)之间的浮点数,size是浮点数的个数
+np.random.rand(d0,d1,...,dn)的随机样本为[0,1)中,dn表示维度
+np.random.randn(d0,d1,...,dn)是从标准正太分布中返回一个或多个样本值
 
-# print(y)
+"""
+# 产生2个[0,1)之间的随机数
+# x1 = np.random.random(2)
+# ndarray数据结构就相当于矩阵的形式,有1维的矩阵、2维的矩阵...n维的矩阵
+# print(x1,type(x1))
+
+# 产生一个2X2的矩阵即2行2列,数值在[0,1)之间
+# x1 = np.random.rand(2,2)
+# print(x1,type(x1))
+
+# 产生一个2X3的矩阵即2行3列,数值可正可负
+# x1 = np.random.randn(2,3)
+# print(x1,type(x1))
+
+# randint(low, high=None, size=None, dtype='l')
+# 返回随机整数，范围区间为[low,high），包含low，不包含high
+# 参数：low为最小值，high为最大值，size为数组维度大小，dtype为数据类型，默认的数据类型是np.int
+# high没有填写时，默认生成随机数的范围是[0，low)
+# x1 = np.random.randint(1,100,10)
+# print(x1)
+
+# 产生一个100X1的矩阵即100行1列,数值在[0,1)之间
+X = 2 * np.random.rand(100, 1)
+
+print("X取值:")
+# print(X)
+
+
+# 随机生成的偏移量也是100X1的数据
+bias = np.random.randn(100, 1)
+print("bias取值:")
+# print(bias)
+
+# X与Y之间的真实关系,产生的Y是100X1的矩阵,即100行1列的数据,由于随机加上了偏移值,因此X与Y之间的关系并不是直线关系
+Y = 4 + 3 * X + bias
+print("y的取值")
+# print(Y)
+
+plt.plot(X, Y, 'b.')
+plt.show()
 # 整合X0和X1
 # X_b = np.c_[np.ones((100, 1)), X]
 # print(X_b)
@@ -38,10 +73,10 @@ print(X)
 # plt.axis([0, 2, 0, 15])
 # plt.show()
 
-X_new = np.array([[0], [2]])
-
-
-print(X_new)
+# X_new = np.array([[0], [2]])
+#
+#
+# print(X_new)
 
 '''
 用vnc实现Windows远程连接linux桌面之服务器配置
