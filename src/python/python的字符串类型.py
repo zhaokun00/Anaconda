@@ -40,3 +40,13 @@ python支持格式化字符串输出,尽管这样可能会用到非常复杂的�
 字符串格式符中
 """
 print("name = %s,age = %d"%("赵坤",30))
+
+# 示例4 字符串的join函数:用于将指定字符连接序列中元素后生成的新字符串
+
+str = "-"
+sque = ("a","b","c")
+
+result = str.join(sque)
+print(result)
+
+

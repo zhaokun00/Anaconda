@@ -73,6 +73,7 @@ print(info.loc[rows])
 
 # 示例6:将属性转换为列表类型
 
+"""
 info = pd.read_csv("food_info.csv")
 
 attr = info.columns
@@ -83,3 +84,5 @@ print(type(attr))
 attr = attr.tolist()
 
 print(type(attr))
+
+"""
