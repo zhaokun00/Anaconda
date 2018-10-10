@@ -34,3 +34,7 @@ print("id1:",id(number))
 number = 22
 print("type2:",type(number))
 print("id2:",id(number))
+
+number=4
+# 运算符**:幂次方
+print("number:",number ** 3)
