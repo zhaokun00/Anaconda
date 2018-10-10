@@ -25,4 +25,7 @@ print("list1[0:3]:",list1[0:3])
 list3[0]= -1
 print("list3:",list3);
 
+# 计算列表的长度
+print("len:",len(list3))
+
 

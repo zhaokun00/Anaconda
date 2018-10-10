@@ -16,6 +16,10 @@ dict1["age"] = 30
 
 print("name:",dict1["name"]);
 
-# 示例2
+# 示例2,初始化时往字典中放入数据
 dict2 = {"name":"ycl","age":30}
+print("name:",dict2["name"])
+print("age:",dict2["age"])
+
+
 

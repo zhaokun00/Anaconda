@@ -8,33 +8,60 @@ from sklearn.linear_model import SGDRegressor
 
 from sklearn.linear_model import LinearRegression
 
-X = 2 * np.random.rand(500, 1)
+X = 200 * np.random.rand(500, 1)
 
 bias = np.random.randn(500, 1)
 
 # 构造数据
 Y = 50 * X ** 2 + 3 * X + 4 + bias
 
-# plt.plot(X,Y,'b.')
-# plt.show()
+plt.plot(X,Y,'r*')
 
-model = PolynomialFeatures(degree=2,include_bias=False)
+# 创建一个多项式实例
+# degree:多项式的阶数,即特征值的幂
+# interaction_only:如果为True,会产生相互影响的特征集
+# include_bias:是否包含偏差列
+'''
+对于只有一个特征,2阶
+x x*x
 
-X_T = model.fit_transform(X)
+如果对于有2个特征,2阶,将来构造的数据为
+a,b,a *a,a *b ,b *b
+'''
+# 定义阶数和画线的颜色
+# degree = {1:"g-",2:"r+",3:"y*"}
 
-# print(X)
-# print(X_T)
+degree = {10:"y*"}
 
-linear = LinearRegression()
+for index in degree:
+    # 该处把截距去掉,原因在于在线性回归中有截距
+    model = PolynomialFeatures(degree=index,include_bias=False)
 
-linear.fit(X_T,Y)
+    # 数据变换,输入的是一列数据,将来会产生2列数据
+    X_T = model.fit_transform(X)
 
-print(linear.intercept_)
-print(linear.coef_)
+    # print(X)
+    print(X_T)
 
-y_predict = linear.predict(X_T)
+    # 创建线性回归的实例,并默认有截距
+    linear = LinearRegression(fit_intercept=True)
 
-plt.plot(X_T, y_predict, 'b.')
+    # 传入的是有2个特征的数据
+    linear.fit(X_T,Y)
+
+    # 打印截距
+    print(linear.intercept_)
+    # 打印特征值的系数
+    print(linear.coef_)
+
+    # 预测
+    y_predict = linear.predict(X_T)
+
+    # print(X_T)
+    # print(X_T[:, 0])
+
+    # 绘制X与Y之间的关系
+    plt.plot(X_T[:, 0], y_predict, degree[index])
 
 plt.show()
 
