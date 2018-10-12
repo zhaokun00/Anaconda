@@ -37,6 +37,7 @@ X_new = np.linspace(0, 3, 1000).reshape(-1, 1)
 print(X_new)
 
 # predict_proba返回的是一个n行k列的数值,第i行第j列上的数值是模型预测第i个预测样本为某个标签的概率并且每一行的概率和为1
+# 比较的概率当哪个概率最大将会取哪一个类别
 y_proba = log_reg.predict_proba(X_new)
 print(y_proba)
 
