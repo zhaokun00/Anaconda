@@ -49,4 +49,13 @@ sque = ("a","b","c")
 result = str.join(sque)
 print(result)
 
+# 很多地方很多时候生成了元组、列表、字典之后可以用join()来转换为字符串
+list = ['list1','list2','list3']
+
+list = " ".join(list)
+
+print(list)
+
+
+
 

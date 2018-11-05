@@ -127,27 +127,65 @@ def countVecor():
 '''
 jieba中文分词
 
-下载:在
+下载:在Anaconda prompt环境中pip install jieba
+使用:import jieba
 '''
 def cutWord():
 
     data = "今天是个好天气,我们一家出去游玩,今天"
 
+    # data = "今天很残酷，明天更残酷，后天很美好，但绝对大部分是死在明天晚上，所以每个人不要放弃今天。"
     d = jieba.cut(data)
 
-    # 将数据转换为list数据,将其转换Wie多条样本数据
+    # 将数据转换为list数据,将其转换为多条样本数据,中间用,号隔开
     data = list(d)
-
     print(list(data))
+
+    # 将list数据转换为字符串,之间用空格隔开
+    data = ' '.join(data)
+
+    print(data)
 
     cv = CountVectorizer()
 
-    d = cv.fit_transform(data)
+    # 再将字符串数据转换为list数据,用[]括起来
+    d = cv.fit_transform([data])
 
     print("type", type(d))
 
     print(cv.get_feature_names())
 
+    print(d.toarray())
+
+# 示例6:对多条中文进行分词
+def cutWord1():
+
+    data1 = "今天去打篮球,我和你都高兴"
+    data2 = "明天去踢足球,他们不高兴"
+
+    c1 = jieba.cut(data1)
+    c2 = jieba.cut(data2)
+
+    c1 = list(c1)
+    c2 = list(c2)
+
+    print(c1)
+    print(c2)
+
+    c1 = " ".join(c1)
+    c2 = " ".join(c2)
+
+    # 返回多个字符串的形式
+    return c1,c2
+
+def cutWord2(c1,c2):
+
+    cv = CountVectorizer()
+
+    # 再将字符串数据转换为list数据,用[]括起来,两条数据中间用,隔开
+    d = cv.fit_transform([c1,c2])
+
+    print(cv.get_feature_names())
     print(d.toarray())
 
 
@@ -157,4 +195,7 @@ if __name__ == "__main__":
     # fitFunction()
     # oneHot()
     # countVecor()
-    cutWord()
+    # cutWord()
+
+    c1,c2 = cutWord1()
+    cutWord2(c1,c2)
