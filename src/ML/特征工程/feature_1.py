@@ -2,6 +2,7 @@ import numpy as np
 
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer,TfidfTransformer
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import OneHotEncoder
 
@@ -105,6 +106,7 @@ def oneHot():
 # 示例4:对文本进行特征抽取
 def countVecor():
 
+    # 对单词统计出现的次数,只是单纯的统计单词的出现的次数
     cv = CountVectorizer()
 
     # 对英文进行分词,组成的为list类型数据,每一条list数据为一个样本,一条样本由多个单词组成,单词与单词之间使用空格来区分的
@@ -160,8 +162,8 @@ def cutWord():
 # 示例6:对多条中文进行分词
 def cutWord1():
 
-    data1 = "今天去打篮球,我和你都高兴"
-    data2 = "明天去踢足球,他们不高兴"
+    data1 = "今天去打篮球"
+    data2 = "明天去踢足球"
 
     c1 = jieba.cut(data1)
     c2 = jieba.cut(data2)
@@ -172,6 +174,7 @@ def cutWord1():
     print(c1)
     print(c2)
 
+    # 用空格将list数据转换为字符串数据
     c1 = " ".join(c1)
     c2 = " ".join(c2)
 
@@ -185,9 +188,60 @@ def cutWord2(c1,c2):
     # 再将字符串数据转换为list数据,用[]括起来,两条数据中间用,隔开
     d = cv.fit_transform([c1,c2])
 
+    print("type:",type(d))
     print(cv.get_feature_names())
+
     print(d.toarray())
 
+    print("type:",type(d.toarray))
+
+# 示例7:tfidf
+'''
+https://blog.csdn.net/sty945/article/details/81813496
+https://www.cnblogs.com/biyeymyhjob/archive/2012/07/17/2595249.html
+https://blog.csdn.net/daizongxue/article/details/77481042
+'''
+def tfidf(c1,c2):
+
+    tfidf = TfidfVectorizer()
+
+    data = tfidf.fit_transform([c1,c2])
+
+    print(tfidf.get_feature_names())
+
+    print(data.toarray())
+
+def testtfidf():
+    # 语料
+    corpus = [
+        'This is the first document.',
+        'This is the second second document.',
+        'And the third one.',
+        'Is this the first document?',
+    ]
+    # 将文本中的词语转换为词频矩阵
+    vectorizer = CountVectorizer()
+    # 计算个词语出现的次数
+    X = vectorizer.fit_transform(corpus)
+    # 获取词袋中所有文本关键词
+    word = vectorizer.get_feature_names()
+    print(word)
+    # 查看词频结果
+    print(X.toarray())
+
+    # ----------------------------------------------------
+
+    # 类调用
+    transformer = TfidfTransformer()
+    print(transformer)
+    # 将词频矩阵X统计成TF-IDF值
+    tfidf = transformer.fit_transform(X)
+    # 查看数据结构 tfidf[i][j]表示i类文本中的tf-idf权重
+    print(tfidf.toarray())
+
+# 计算平均值与方差在线性回归的4文件中
+
+# 特征抽取-->特征处理-->特征选择
 
 if __name__ == "__main__":
 
@@ -199,3 +253,8 @@ if __name__ == "__main__":
 
     c1,c2 = cutWord1()
     cutWord2(c1,c2)
+    #
+    c1, c2 = cutWord1()
+    tfidf(c1,c2)
+
+    # testtfidf()
