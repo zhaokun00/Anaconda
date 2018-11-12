@@ -8,6 +8,11 @@ from sklearn.preprocessing import OneHotEncoder
 
 import jieba
 
+'''
+特征抽取:
+    1.针对非连续型数据
+    2.针对文本进行特征值化
+'''
 #  示例1:字典数据特征抽取
 
 def dicFunction() :
@@ -197,11 +202,13 @@ def cutWord2(c1,c2):
 
 # 示例7:tfidf
 '''
-https://blog.csdn.net/sty945/article/details/81813496
-https://www.cnblogs.com/biyeymyhjob/archive/2012/07/17/2595249.html
-https://blog.csdn.net/daizongxue/article/details/77481042
+TfidfVectorizer相当于CountVectorizer与TfidfTransformer二者的结合体
+
+TF-IDF的主要思想是:如果某个词或短语在一篇文章中出现的概率高,并且在其他文章中很少出现,
+则认为该词或短语具有很好的类别区分能力,适合用来分类
+TF-IDF作用:用以评估字词对于一个文件集或者语料库中的其中一份文件的重要程度
 '''
-def tfidf(c1,c2):
+def tfidf1(c1,c2):
 
     tfidf = TfidfVectorizer()
 
@@ -211,7 +218,9 @@ def tfidf(c1,c2):
 
     print(data.toarray())
 
-def testtfidf():
+    print(tfidf.inverse_transform(data))
+
+def tfidf2():
     # 语料
     corpus = [
         'This is the first document.',
@@ -228,8 +237,6 @@ def testtfidf():
     print(word)
     # 查看词频结果
     print(X.toarray())
-
-    # ----------------------------------------------------
 
     # 类调用
     transformer = TfidfTransformer()
@@ -251,10 +258,10 @@ if __name__ == "__main__":
     # countVecor()
     # cutWord()
 
-    c1,c2 = cutWord1()
-    cutWord2(c1,c2)
+    # c1,c2 = cutWord1()
+    # cutWord2(c1,c2)
     #
     c1, c2 = cutWord1()
-    tfidf(c1,c2)
+    tfidf1(c1,c2)
 
-    # testtfidf()
+    # tfidf2()
