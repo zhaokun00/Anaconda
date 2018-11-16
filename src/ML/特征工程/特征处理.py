@@ -25,6 +25,30 @@ def minmax():
 
     print(data)
 
+
+# 示例2:计算协方差
+def cov():
+    data = [[1,2],[3,4]]
+
+    data = np.array(data)
+
+    print(data)
+
+    print(np.mean(data,axis=0))
+    print(np.var(data,axis=0))
+
+    # 计算协方差
+    '''
+    rowvar:布尔值,默认为True,True:行是特征,列是样本
+                            False:样本,列是特征
+    bias:布尔值,默认是False,False:无偏估计,协方差计算分母为n-1
+                           True:有偏估计,协方差计算分母为n(n为样本数)
+    '''
+    print(np.cov(data,rowvar=False,bias=True))
+
+
 if __name__ == "__main__":
 
-    minmax()
+    # minmax()
+
+    cov()
