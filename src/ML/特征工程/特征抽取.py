@@ -66,6 +66,10 @@ def fitFunction() :
 
     data = [[1,2,3],[4,5,6]]
 
+    print(np.mean(data,axis=0))
+    print(np.std(data,axis=0))
+    print((data-np.mean(data,axis=0))/np.std(data,axis=0))
+
     # 定义标准化实例
     s = StandardScaler()
 
@@ -75,6 +79,14 @@ def fitFunction() :
     # 在transform()函数中进行数据转换,会使用前面fit计算的参数进行转换
     print(s.transform(data))
 
+    test_data = [[7,8,9]]
+
+    print((test_data-np.mean(data,axis=0))/np.std(data,axis=0))
+    print(s.transform(test_data))
+
+    ss = StandardScaler()
+
+    print(ss.fit_transform(test_data))
     # 相当于前面两个函数的结合体
     # print(s.fit_transform(data))
 
@@ -253,7 +265,7 @@ def tfidf2():
 if __name__ == "__main__":
 
     # dicFunction()
-    # fitFunction()
+    fitFunction()
     # oneHot()
     # countVecor()
     # cutWord()
@@ -261,7 +273,7 @@ if __name__ == "__main__":
     # c1,c2 = cutWord1()
     # cutWord2(c1,c2)
     #
-    c1, c2 = cutWord1()
-    tfidf1(c1,c2)
+    # c1, c2 = cutWord1()
+    # tfidf1(c1,c2)
 
     # tfidf2()
