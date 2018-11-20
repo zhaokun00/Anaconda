@@ -273,7 +273,7 @@ if __name__ == "__main__":
     # c1,c2 = cutWord1()
     # cutWord2(c1,c2)
     #
-    # c1, c2 = cutWord1()
-    # tfidf1(c1,c2)
+    c1, c2 = cutWord1()
+    tfidf1(c1,c2)
 
     # tfidf2()
