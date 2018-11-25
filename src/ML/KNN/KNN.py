@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report
 import pandas as pd
-# from numpy import float64
+from numpy import float64
 # import os
 # os.environ["TF_CPP_MIN_LOG_LEVEL"]="3"
 #
@@ -16,7 +16,7 @@ import pandas as pd
 # https://blog.csdn.net/imstudying/article/details/77876159
 # https://blog.csdn.net/zhu1365377615/article/details/80320687
 # https://blog.csdn.net/zhuiyuanzhongjia/article/details/80170412
-# def knn():
+def knn():
 #
 #     '''
 #     在sklean中,估计器(estimator)是一个重要的角色,分类器和回归器都属于estimator,是一类实现了算法的API
@@ -29,50 +29,50 @@ import pandas as pd
 #         sklean.libear_model.Ridge - 岭回归
 #     '''
 #     # https://www.cnblogs.com/erbaodabao0611/p/7588840.html
-#     x_train = [[3,104],[2,100],[1,81],[101,10],[99,5],[98,2]]
-#
-#     y_train = [0,0,0,1,1,1]
-#
-#     # print(x_train)
-#     # print(y_train)
+    x_train = [[101,10],[99,5],[98,2],[3,104],[2,100],[1,81]]
+
+    y_train = [1,1,1,2,2,2]
+
+    # print(x_train)
+    # print(y_train)
 #
 #     '''
 #     python3.5的numpy设置array为float64，报错"name float64 is not defined"
 #     '''
-#     x_train = np.array(x_train,dtype=float64)
-#     y_train = np.array(y_train)
+    x_train = np.array(x_train,dtype=float64)
+    y_train = np.array(y_train)
 #
-#     scaler = StandardScaler()
+    scaler = StandardScaler()
 #
 #     # 对训练数据进行标准化,使用了训练数据的标准化的实例
-#     x_train = scaler.fit_transform(x_train)
-#
-#     print(x_train)
-#     print(y_train)
+    x_train = scaler.fit_transform(x_train)
+
+    print(x_train)
+    print(y_train)
 #
 #     '''
 #     n_neighbors:邻居数
 #     '''
-#     knn = KNeighborsClassifier(n_neighbors=3)
-#
-#     knn.fit(x_train,y_train)
-#
-#     x_test = [[4,100]]
+    knn = KNeighborsClassifier(n_neighbors=3)
+
+    knn.fit(x_train,y_train)
+
+    x_test = [[300,1],[4,100],[300,2]]
 #
 #     # 对测试数据进行标准化,使用前面的标准化的实例
-#     x_test = scaler.transform(x_test)
-#     y_test = [0]
+    x_test = scaler.transform(x_test)
+    y_test = [1,2,1]
 #
 #     # 对其进行预测
-#     result = knn.predict(x_test)
+    result = knn.predict(x_test)
 #
 #     # 计算准确率(预测结果正确地百分比),用于模型的评估
-#     score = knn.score(x_test,y_test)
+    score = knn.score(x_test,y_test)
 #
-    # print(result)
+    print(result)
     # print(score)
-    #
-    # print("精确率与召回率:",classification_report(y_test,result))
+    targetName = ["类别1","类别2"]
+    print("精确率与召回率:",classification_report(y_test,result,target_names=targetName))
 
 def naviebayes():
     """
@@ -81,8 +81,17 @@ def naviebayes():
     """
     news = fetch_20newsgroups(subset='all')
 
-    # print(np.shape(news))
+    print(type(news))
 
+    # 分类的名称
+    print("target_name:",news['target_names'])
+    # 文件名
+    print("filenames:",news['filenames'])
+    for it in news:
+        print(it)
+
+'''
+    # print(np.shape(news))
 
     # print(news)
     # 进行数据分割
@@ -105,7 +114,8 @@ def naviebayes():
 
     for it in news.target_names:
         print(it)
-    '''
+
+
     # 对数据集进行特征抽取
     tf = TfidfVectorizer()
 
@@ -134,4 +144,5 @@ def naviebayes():
 '''
 if __name__ == "__main__":
 
+    # knn()
     naviebayes()
