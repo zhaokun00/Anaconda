@@ -52,10 +52,10 @@ def naviebayes():
 
     print(tf.get_feature_names())
 
-    # 对测试数据进行数据转换
+    # 对测试数据进行数据转换,使用的是前面训练数据的实例,出现频次越高重要程度越大
     x_test = tf.transform(x_test)
 
-    # 进行朴素贝叶斯算法的预测
+    # 进行朴素贝叶斯算法的预测,设置拉普拉斯平滑系数
     mlt = MultinomialNB(alpha=1.0)
 
     # print(x_train.toarray())
