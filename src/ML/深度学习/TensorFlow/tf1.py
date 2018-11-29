@@ -44,13 +44,13 @@ pip uninstall h5py
 def add(a,b):
     return a+b
 
-
 # 导入tensorflow的包
 import tensorflow as tf
 import os
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
+# 示例2:tensorflow中的运算
 def tfadd():
     a = tf.constant(10)
     b = tf.constant(20)
@@ -64,6 +64,7 @@ def tfsub():
     a = tf.constant(10)
     b = tf.constant(20)
 
+    # tensorflow中有重载机制,默认会给运算符重载成op类型
     sub = a - b
 
     with tf.Session() as sess:
