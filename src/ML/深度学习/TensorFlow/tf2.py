@@ -113,12 +113,20 @@ def test7():
     # 第二个参数规定了占位符的形状
     data1 = tf.placeholder(tf.float64,[2,3])
     # 当函数并不确定时可以用None进行表示,因此在用使用feed_dice表示时可以输入任意的行数
-    data1 = tf.placeholder(tf.float64,[None,3])
+    # data1 = tf.placeholder(tf.float64,[None,3])
     # data1为一个tensor
     print(data1)
 
+    print(type(data1))
     with tf.Session() as sess:
+        print("***************")
         print(sess.run(data1, feed_dict={data1: [[1,2,3],[4,5,6]]}))
+        print("***************")
+        print(data1.shape)
+        print("***************")
+        print(data1.name)
+        print("***************")
+        print(data1.op)
 
 if __name__ == "__main__":
 
