@@ -70,10 +70,68 @@ def test3():
     with tf.Session() as sess:
         print(sess.run(sum))
 
+# eval函数,相当于进行run函数
+def test4():
+
+    data1 = tf.constant(3)
+    data2 = tf.constant(2)
+
+    sum = data1 + data2;
+
+    with tf.Session() as sess:
+       #  eval函数,获取返回值,相当于进行run函数
+       print(sum.eval())
+
+# config=tf.ConfigProto(log_device_placement=True),可以打印当前程序在哪个CPU上运行
+def test5():
+
+    data1 = tf.constant(3)
+    data2 = tf.constant(2)
+
+    sum = data1 + data2;
+
+    with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as sess:
+        sess.run(sum)
+
+# placeholder函数:占位符,在程序执行的时候,不确定输入的是什么,run函数运行时通过feed_dict指定参数,一般是用于训练时输入数据使用
+def test6():
+
+    data1 = tf.placeholder(tf.float64)
+    data2 = tf.placeholder(tf.float64)
+
+    sum = data1 + data2
+
+    with tf.Session() as sess:
+        # 错误的写法
+        # print(sess.run(sum,feed_dict={"data1":1,"data2":3}))
+        # 正确的写法,feed_dict实际是一个map类型
+        print(sess.run(sum, feed_dict={data1: 1, data2: 3}))
+
+#  placeholder函数,指定形状
+def test7():
+
+    # 第二个参数规定了占位符的形状
+    data1 = tf.placeholder(tf.float64,[2,3])
+    # 当函数并不确定时可以用None进行表示,因此在用使用feed_dice表示时可以输入任意的行数
+    data1 = tf.placeholder(tf.float64,[None,3])
+    # data1为一个tensor
+    print(data1)
+
+    with tf.Session() as sess:
+        print(sess.run(data1, feed_dict={data1: [[1,2,3],[4,5,6]]}))
+
 if __name__ == "__main__":
 
-    test1()
+    # test1()
 
     # test2()
 
     # test3()
+
+    # test4()
+
+    # test5()
+
+    # test6()
+
+    test7()
