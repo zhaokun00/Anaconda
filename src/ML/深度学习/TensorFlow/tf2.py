@@ -88,7 +88,12 @@ def test5():
     data1 = tf.constant(3)
     data2 = tf.constant(2)
 
+    print(data1)
+    print(data2)
+
     sum = data1 + data2;
+
+    print(sum)
 
     with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as sess:
         sess.run(sum)
@@ -99,7 +104,11 @@ def test6():
     data1 = tf.placeholder(tf.float64)
     data2 = tf.placeholder(tf.float64)
 
+    print(data1)
+    print(data2)
     sum = data1 + data2
+
+    print(sum)
 
     with tf.Session() as sess:
         # 错误的写法
@@ -111,7 +120,7 @@ def test6():
 def test7():
 
     # 第二个参数规定了占位符的形状
-    data1 = tf.placeholder(tf.float64,[2,3])
+    data1 = tf.placeholder(tf.float64,[2,3],name="data1")
     # 当函数并不确定时可以用None进行表示,因此在用使用feed_dice表示时可以输入任意的行数
     # data1 = tf.placeholder(tf.float64,[None,3])
     # data1为一个tensor
@@ -122,12 +131,97 @@ def test7():
         print("***************")
         print(sess.run(data1, feed_dict={data1: [[1,2,3],[4,5,6]]}))
         print("***************")
+        # 张量的形状
         print(data1.shape)
         print("***************")
+        # 张量的名字
         print(data1.name)
         print("***************")
+        # 张量的操作名
         print(data1.op)
 
+# 张量的静态形状和动态形状本质区别在于有没有生成一个新的张量,静态形状没有,动态形状有
+# 张量的静态形状:对于静态形状固定了,不能再次设置静态形状,不能跨维度修改,即只能1D->1D,2D->2D,3D->3D
+def test8():
+
+    data1 = tf.placeholder(tf.float64,[None,3])
+
+    print(data1)
+    print(id(data1))
+    # 设置形状
+    data1.set_shape([5,3])
+    print(id(data1))
+    print(data1)
+
+    # 注意点1:不能再次重新分配
+    # data1.set_shape([3,3])
+    #
+    # print(data1)
+
+    # data2 = tf.placeholder(tf.float64,[None,3])
+
+    # 注意点2:不能跨维度进行转换
+    # data2.set_shape([2,3,1])
+    #
+    # print(data2)
+
+    data3 = tf.placeholder(tf.float64, (4,4))
+
+    # data3.set_shape(4,4)
+
+    print(data3)
+
+
+# 张量的动态形状:动态形状可以去创建一个新的张量,改变的时候一定要注意元素数量要匹配,1D->2D,1D->3D,可以跨维度修改
+def test9():
+
+    data1 = tf.placeholder(tf.float64,[None,3])
+    print(id(data1))
+    #
+    data2 = tf.reshape(data1,shape=(5,3))
+    print(id(data2))
+    print(data2)
+
+    data3 = tf.reshape(data1,shape=(3,6))
+
+    print(data3)
+
+    # 注意1:动态张量在进行修改时,总的元素个数一定要与之前的相同
+    # data4 = tf.reshape(data3,shape=(3,5))
+    #
+    # print(data4)
+
+    data5 = tf.reshape(data3,shape=(3,2,3))
+
+    print(data5)
+
+# 变量op
+'''
+1.变量op能够进行持久化保存,普通张量op不可以
+2.当定义一个变量op的时候,一定要在会话中去运行初始化
+3.name参数,在tensorboard使用的时候显示名字,可以让相同op名字进行区分
+'''
+def test10():
+
+    # 定义一个常量
+    data0 = tf.constant(1)
+    # 定义一个变量
+    data1 = tf.Variable(10)
+
+    # 直接这样打印是打印不出来数值的,只有在sess.run时才能进行打印出来数值
+    print(data0)
+    print(data1)
+
+    # 要想使用变量,必须进行变量全局初始化操作,并且还要进行run操作
+    init = tf.global_variables_initializer()
+
+    with tf.Session() as sess:
+
+        print(sess.run(init))
+        print(sess.run(data0))
+        print(sess.run(data1))
+
+# https://www.cnblogs.com/tsiangleo/p/6145112.html
 if __name__ == "__main__":
 
     # test1()
@@ -142,4 +236,10 @@ if __name__ == "__main__":
 
     # test6()
 
-    test7()
+    # test7()
+
+    # test8()
+
+    # test9()
+
+    test10()
